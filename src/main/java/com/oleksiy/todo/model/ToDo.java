@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "todos")
@@ -26,6 +27,15 @@ public class ToDo {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.REMOVE)
+    private List<Task> tasks;
+
+    @ManyToMany
+    @JoinTable(name = "todo_collaborator",
+            joinColumns = @JoinColumn(name = "todo_id"),
+            inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
+    private List<User> collaborators;
 
     @Override
     public String toString() {
