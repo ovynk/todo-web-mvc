@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Table(name = "roles")
 @Getter
 @Setter
-public class Role {
+public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -22,4 +23,9 @@ public class Role {
 
     @OneToMany(mappedBy = "role")
     private List<User> users;
+
+    @Override
+    public String getAuthority() {
+        return "ROLE_" + getName();
+    }
 }
