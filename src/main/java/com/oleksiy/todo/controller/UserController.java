@@ -4,7 +4,6 @@ import com.oleksiy.todo.model.User;
 import com.oleksiy.todo.service.RoleService;
 import com.oleksiy.todo.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
