@@ -13,7 +13,7 @@
 <div class="col-xs-6 col-xs-offset-3">
     <h2 class="col-xs-offset-2">Update Existing User</h2>
 
-    <form class="form-horizontal" method="post" th:action="@{/users/create}" th:object="${user}">
+    <form class="form-horizontal" method="post" th:action="@{|/users/${id}/update|}" th:object="${user}">
         <div class="form-group">
             <label class="col-sm-2 control-label" for="id">ID:</label>
             <div class="col-sm-8">
