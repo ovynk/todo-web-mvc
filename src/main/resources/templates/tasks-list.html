@@ -15,7 +15,7 @@
 
     <form th:if="${#authorization.expression('hasRole(''ADMIN'')') || todo.owner.getId() == #authentication.principal.id}"
           class="form-horizontal" th:action="@{|/tasks/create/todos/${todo.id}|}" method="get">
-        <div align="right">
+        <div th:align="right">
             <input class="btn-info btn-lg" type="submit" value="Create Task">
         </div>
     </form>
@@ -62,7 +62,7 @@
                 <option th:each="user : ${users}" th:value="${user.id}"
                         th:text="${user.firstName + ' ' + user.lastName}"></option>
             </select>
-            <input align="right" class="btn btn" type="submit" value="Add">
+            <input th:align="right" class="btn btn" type="submit" value="Add">
         </form>
     </span>
 
@@ -72,17 +72,23 @@
         <tr th:each="collaborator, iStat: ${todo.collaborators}">
             <td th:text="${iStat.index + 1}"/>
             <td>
-                <a th:href="@{|/todos/all/users/${collaborator.id}|}"
+                <a th:attr="class=${(#authorization.expression('hasRole(''ADMIN'')')
+                            || (collaborator.id == #authentication.principal.id)) ? '' : 'text-muted'}"
+                   th:href="@{|/todos/all/users/${collaborator.id}|}"
                    th:text="${collaborator.firstName + ' ' + collaborator.lastName}"/>
             </td>
             <td>
-                <a th:href="@{/todos/{id}/remove(id = ${todo.id}, user_id = ${collaborator.id})}">Remove</a>
+                <a th:attr="class=${(#authorization.expression('hasRole(''ADMIN'')')
+                            || (todo.owner.id == #authentication.principal.id)) ? '' : 'text-muted'}"
+                   th:href="@{/todos/{id}/remove(id = ${todo.id}, user_id = ${collaborator.id})}">Remove</a>
             </td>
         </tr>
     </table>
 
     <span>
-        <a th:href="@{|/todos/all/users/${todo.owner.id}|}">Go to ToDo Lists</a>
+        <a th:attr="class=${(#authorization.expression('hasRole(''ADMIN'')')
+            || (todo.owner.id == #authentication.principal.id)) ? '' : 'text-muted'}"
+           th:href="@{|/todos/all/users/${todo.owner.id}|}">Go to ToDo Lists</a>
     </span>
 </div>
 

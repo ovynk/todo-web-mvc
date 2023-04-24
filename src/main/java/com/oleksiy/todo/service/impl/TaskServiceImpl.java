@@ -61,4 +61,8 @@ public class TaskServiceImpl implements TaskService {
         List<Task> tasks = taskRepository.getByTodoId(todoId);
         return tasks.isEmpty() ? new ArrayList<>() : tasks;
     }
+
+    public boolean taskFromThisTodo(long taskId, long todoId) {
+        return readById(taskId).getTodo().getId() == todoId;
+    }
 }

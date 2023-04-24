@@ -12,7 +12,7 @@
 <div class="col-md-offset-2 col-sm-8">
     <h2 th:text="${'All ToDo Lists of ' + user.firstName + ' ' + user.lastName}"/>
     <form th:action="@{|/todos/create/users/${user.id}|}" method="get">
-        <div align="right">
+        <div th:align="right">
             <input class="btn-info btn-lg" type="submit" value="Create New ToDo List">
         </div>
     </form>

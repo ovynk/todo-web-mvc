@@ -22,6 +22,8 @@ public class TaskController {
     private final ToDoService todoService;
 
     @GetMapping("/create/todos/{todo_id}")
+    @PreAuthorize("hasRole('ADMIN') or " +
+            "(hasRole('USER') and @toDoServiceImpl.userIsOwner(#todoId, authentication.principal.id))")
     public String create(@PathVariable("todo_id") long todoId, Model model) {
         model.addAttribute("task", new Task());
         model.addAttribute("todo", todoService.readById(todoId));
@@ -30,6 +32,8 @@ public class TaskController {
     }
 
     @PostMapping("/create/todos/{todo_id}")
+    @PreAuthorize("hasRole('ADMIN') or " +
+            "(hasRole('USER') and @toDoServiceImpl.userIsOwner(#todoId, authentication.principal.id))")
     public String create(@PathVariable("todo_id") long todoId, Model model,
                          @Validated @ModelAttribute("task") Task task, BindingResult result) {
         if (result.hasErrors()) {
@@ -44,6 +48,10 @@ public class TaskController {
     }
 
     @GetMapping("/{task_id}/update/todos/{todo_id}")
+    @PreAuthorize("hasRole('ADMIN') or " +
+            "(hasRole('USER') " +
+            "and @toDoServiceImpl.userIsOwner(#todoId, authentication.principal.id) " +
+            "and @taskServiceImpl.taskFromThisTodo(#taskId, #todoId))")
     public String update(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId, Model model) {
         Task task = taskService.readById(taskId);
         model.addAttribute("task", task);
@@ -53,6 +61,10 @@ public class TaskController {
     }
 
     @PostMapping("/{task_id}/update/todos/{todo_id}")
+    @PreAuthorize("hasRole('ADMIN') or " +
+            "(hasRole('USER') " +
+            "and @toDoServiceImpl.userIsOwner(#todoId, authentication.principal.id) " +
+            "and @taskServiceImpl.taskFromThisTodo(#taskId, #todoId))")
     public String update(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId, Model model,
                          @Validated @ModelAttribute("task")Task task, BindingResult result) {
         if (result.hasErrors()) {
@@ -68,6 +80,9 @@ public class TaskController {
     }
 
     @GetMapping("/{task_id}/delete/todos/{todo_id}")
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER') " +
+            "and @toDoServiceImpl.userIsOwner(#todoId, authentication.principal.id) " +
+            "and @taskServiceImpl.taskFromThisTodo(#taskId, #todoId))")
     public String delete(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId) {
         taskService.delete(taskId);
         return "redirect:/todos/" + todoId + "/tasks";
