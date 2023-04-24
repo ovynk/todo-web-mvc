@@ -9,7 +9,7 @@
 
 <div th:insert="~{fragments/header.html}"></div>
 
-<div class="col-md-offset-2 col-sm-6">
+<div class="col-xs-4 col-xs-offset-4">
     <h2>Update Task</h2>
 
     <form class="form-horizontal" th:action="@{|/tasks/${task_id}/update/todos/${todo_id}|}" th:object="${task}" method="post">
@@ -55,9 +55,10 @@
         <input type="hidden" name="id" th:value="*{id}">
         <input type="hidden" name="todoId" th:value="${task.todo.id}">
     </form>
-</div>
 
-<a th:href="@{|/todos/${task.todo.id}/tasks|}">Go to Task List</a>
+    <a th:href="@{|/todos/${task.todo.id}/tasks|}">Go to Task List</a>
+
+</div>
 
 </body>
 </html>
