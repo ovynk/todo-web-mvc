@@ -56,7 +56,7 @@ public class ToDoController {
         model.addAttribute("todo", todo);
         model.addAttribute("tasks", tasks);
         model.addAttribute("users", users);
-        return "todo-tasks";
+        return "tasks-list";
     }
 
     @GetMapping("/{todo_id}/update/users/{owner_id}")
