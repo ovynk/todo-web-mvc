@@ -1,6 +1,7 @@
 package com.oleksiy.todo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "The 'name' cannot be empty")
     @Column(name = "name", nullable = false)
     private String name;
 

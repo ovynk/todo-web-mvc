@@ -60,4 +60,14 @@ public class ToDoServiceImpl implements ToDoService {
         List<ToDo> toDos = toDoRepository.getByUserId(userId);
         return toDos.isEmpty() ? new ArrayList<>() : toDos;
     }
+
+    public boolean userIsOwner(long toDoId, long userId) {
+        return readById(toDoId).getOwner().getId() == userId;
+    }
+
+    public boolean userIsOwnerOrCollaborator(long toDoId, long userId) {
+        return getByUserId(userId)
+                .stream()
+                .anyMatch(toDo -> toDo.getId() == toDoId);
+    }
 }

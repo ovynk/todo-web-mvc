@@ -9,18 +9,21 @@
 
 <div th:insert="~{fragments/header.html}"></div>
 
-<div class="col-xs-6 col-xs-offset-3">
-    <h2 class="col-xs-offset-2">Create New ToDo List</h2>
+<div class="col-xs-4 col-xs-offset-4">
+    <h2 >Create New ToDo List</h2>
 
-    <form class="form-horizontal" th:action="@{|/todos/create/users/${owner_id}|}" th:object="${todo}" method="post">
+    <form class="form-horizontal" th:action="@{|/todos/create/users/${owner_id}|}" th:object="${todo}"
+          method="post">
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="title">Title:</label>
-            <div class="col-sm-8">
+            <label for="title">Title:</label>
+            <div>
                 <input class="form-control" type="text" th:field="*{title}" id="title"/>
-                <small class="form-text text-muted" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
+                <small class="form-text text-muted" th:if="${#fields.hasErrors('title')}"
+                       th:errors="*{title}"></small>
             </div>
         </div>
-        <div class="col-sm-offset-2 col-sm-8">
+
+        <div>
             <input class="btn btn-info" type="submit" value="Create"/>
             <input class="btn btn" type="reset" value="Clear"/>
         </div>
