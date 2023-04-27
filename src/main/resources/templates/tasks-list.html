@@ -90,6 +90,11 @@
             || (todo.owner.id == #authentication.principal.id)) ? '' : 'text-muted'}"
            th:href="@{|/todos/all/users/${todo.owner.id}|}">Go to ToDo Lists</a>
     </span>
+
+    <a type="hidden" id="todo_id" th:value="${id}"></a>
+
+    <div th:insert="~{fragments/index.html}"></div>
+
 </div>
 
 </body>
