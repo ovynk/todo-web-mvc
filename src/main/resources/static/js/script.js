@@ -12,16 +12,13 @@ var stompClient = null;
 var username = null;
 var todoId = null;
 
-
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
 function connect(event) {
-    todoId = document.getElementById('todo_id').toString();
-    console.log('Its todo id = ' + todoId);
-
+    todoId = document.getElementById('todo_id').value;
     username = document.querySelector('#name').value.trim();
 
     if(username) {
@@ -38,10 +35,10 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic/todos/' + todoId, onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
+    stompClient.send("/app/chat/todos/" + todoId + ".addUser",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
     )
@@ -62,7 +59,7 @@ function sendMessage(event) {
             content: messageInput.value,
             type: 'CHAT'
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chat/todos/" + todoId + ".sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
@@ -70,7 +67,6 @@ function sendMessage(event) {
 
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
-
     var messageElement = document.createElement('li');
 
     if(message.type === 'JOIN') {

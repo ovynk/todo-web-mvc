@@ -91,7 +91,7 @@
            th:href="@{|/todos/all/users/${todo.owner.id}|}">Go to ToDo Lists</a>
     </span>
 
-    <a type="hidden" id="todo_id" th:value="${id}"></a>
+    <input type="hidden" id="todo_id" th:value="${id}">
 
     <div th:insert="~{fragments/index.html}"></div>
 
