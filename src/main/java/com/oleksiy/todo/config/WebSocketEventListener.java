@@ -1,6 +1,7 @@
 package com.oleksiy.todo.config;
 
-import com.oleksiy.todo.model.ChatMessage;
+import com.oleksiy.todo.model.chat.ChatMessage;
+import com.oleksiy.todo.model.chat.MessageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class WebSocketEventListener {
             logger.info("User Disconnected : " + username);
 
             ChatMessage chatMessage = new ChatMessage();
-            chatMessage.setType(ChatMessage.MessageType.LEAVE);
+            chatMessage.setType(MessageType.LEAVE);
             chatMessage.setSender(username);
 
             messagingTemplate.convertAndSend("/topic/todos/", chatMessage);
