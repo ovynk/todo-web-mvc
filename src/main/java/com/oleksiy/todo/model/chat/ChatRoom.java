@@ -18,7 +18,7 @@ public class ChatRoom {
 
     @OneToOne
     @JoinColumn(name = "todo_id")
-    private ToDo toDo;
+    private ToDo todo;
 
     @OneToMany(mappedBy = "chatroom", cascade = CascadeType.REMOVE)
     private List<ChatMessage> messages;

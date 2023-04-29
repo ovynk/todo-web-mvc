@@ -8,5 +8,5 @@ public interface ChatMassageService {
     ChatMessage create(ChatMessage chatMessage);
     ChatMessage readById(long id);
     void delete(long id);
-    List<ChatMessage> getAll();
+    List<ChatMessage> getAllByChatRoomId(long chatRoomId);
 }

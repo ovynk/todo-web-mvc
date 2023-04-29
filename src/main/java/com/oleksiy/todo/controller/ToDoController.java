@@ -3,6 +3,8 @@ package com.oleksiy.todo.controller;
 import com.oleksiy.todo.model.Task;
 import com.oleksiy.todo.model.ToDo;
 import com.oleksiy.todo.model.User;
+import com.oleksiy.todo.model.chat.ChatRoom;
+import com.oleksiy.todo.service.ChatRoomService;
 import com.oleksiy.todo.service.TaskService;
 import com.oleksiy.todo.service.ToDoService;
 import com.oleksiy.todo.service.UserService;
@@ -26,7 +28,7 @@ public class ToDoController {
     private final ToDoService todoService;
     private final TaskService taskService;
     private final UserService userService;
-
+    private final ChatRoomService chatRoomService;
 
     @GetMapping("/create/users/{owner_id}")
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER') and #ownerId == authentication.principal.id)")
@@ -46,6 +48,11 @@ public class ToDoController {
         todo.setCreatedAt(LocalDateTime.now());
         todo.setOwner(userService.readById(ownerId));
         todoService.create(todo);
+
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.setTodo(todo);
+        chatRoomService.create(chatRoom);
+
         return "redirect:/todos/all/users/" + ownerId;
     }
 

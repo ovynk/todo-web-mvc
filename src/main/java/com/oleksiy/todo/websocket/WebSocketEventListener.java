@@ -1,4 +1,4 @@
-package com.oleksiy.todo.config;
+package com.oleksiy.todo.websocket;
 
 import com.oleksiy.todo.model.chat.ChatMessage;
 import com.oleksiy.todo.model.chat.MessageType;
@@ -12,17 +12,23 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import java.util.Objects;
+
 @Component
 public class WebSocketEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
+    private final SimpMessageSendingOperations messagingTemplate;
 
     @Autowired
-    private SimpMessageSendingOperations messagingTemplate;
+    public WebSocketEventListener(SimpMessageSendingOperations messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
-        logger.info("Received a new web socket connection");
+        logger.info("Received a new web socket connection, user:" +
+                Objects.requireNonNull(event.getUser()).getName());
     }
 
     @EventListener
@@ -31,15 +37,17 @@ public class WebSocketEventListener {
 
         logger.debug(headerAccessor.getLogin());
 
-        String username = (String) headerAccessor.getSessionAttributes().get("username");
-        if(username != null) {
-            logger.info("User Disconnected : " + username);
+        String username = (String) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("username");
+        String todoId = (String) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("todoId");
+
+        if(username != null || todoId != null) {
+            logger.info("User Disconnected : " + username + ", from todoId : " + todoId);
 
             ChatMessage chatMessage = new ChatMessage();
             chatMessage.setType(MessageType.LEAVE);
             chatMessage.setSender(username);
 
-            messagingTemplate.convertAndSend("/topic/todos/", chatMessage);
+            messagingTemplate.convertAndSend("/topic/todos/" + todoId, chatMessage);
         }
     }
 

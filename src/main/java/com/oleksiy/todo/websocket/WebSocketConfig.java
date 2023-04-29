@@ -1,4 +1,4 @@
-package com.oleksiy.todo.config;
+package com.oleksiy.todo.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

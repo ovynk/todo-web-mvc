@@ -37,8 +37,8 @@ public class ChatMessageImpl implements ChatMassageService {
     }
 
     @Override
-    public List<ChatMessage> getAll() {
-        List<ChatMessage> messages = chatMessageRepository.findAll();
+    public List<ChatMessage> getAllByChatRoomId(long chatRoomId) {
+        List<ChatMessage> messages = chatMessageRepository.getAllByChatRoomId(chatRoomId);
         return messages.isEmpty() ? new ArrayList<>() : messages;
     }
 

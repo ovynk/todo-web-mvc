@@ -1,5 +1,6 @@
 package com.oleksiy.todo.model.chat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +25,8 @@ public class ChatMessage {
     private String sender;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "chatroom_id")
-    private ChatRoom chatRoom;
+    private ChatRoom chatroom;
 
 }

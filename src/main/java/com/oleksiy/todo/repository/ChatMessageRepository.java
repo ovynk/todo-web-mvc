@@ -11,6 +11,6 @@ import java.util.List;
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> {
 
     @Query(value = "select * from messages where chatroom_id = ?1", nativeQuery = true)
-    List<ChatMessage> getByChatRoomId(long chatRoomId);
+    List<ChatMessage> getAllByChatRoomId(long chatRoomId);
 
 }
