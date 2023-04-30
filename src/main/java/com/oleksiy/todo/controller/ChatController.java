@@ -29,14 +29,12 @@ public class ChatController {
     }
 
     @MessageMapping("/chat/todos/{todoId}.addUser")
-    @SendTo("/topic/todos/{todoId}")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage,
-                               @DestinationVariable String todoId,
-                               SimpMessageHeaderAccessor headerAccessor) {
+    public void addUser(@Payload ChatMessage chatMessage,
+                        @DestinationVariable String todoId,
+                        SimpMessageHeaderAccessor headerAccessor) {
         // Add attributes in web socket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         headerAccessor.getSessionAttributes().put("todoId", todoId);
-        return chatMessage;
     }
 
 }

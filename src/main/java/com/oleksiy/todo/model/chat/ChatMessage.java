@@ -14,10 +14,6 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private MessageType type;
-
     @Column(name = "content", columnDefinition = "TEXT", length = 480)
     private String content;
 
