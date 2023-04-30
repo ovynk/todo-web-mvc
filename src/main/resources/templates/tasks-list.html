@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -91,9 +90,11 @@
            th:href="@{|/todos/all/users/${todo.owner.id}|}">Go to ToDo Lists</a>
     </span>
 
-    <input type="hidden" id="todo_id" th:value="${id}">
+    <div th:insert="~{fragments/chat.html}"></div>
 
-    <div th:insert="~{fragments/index.html}"></div>
+    <input type="hidden" id="todo_id" th:value="${id}">
+    <input type="hidden" id="username"
+           th:value="${#authentication.principal.firstName + ' ' + #authentication.principal.lastName}">
 
 </div>
 

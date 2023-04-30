@@ -67,6 +67,12 @@ public class ToDoController {
         model.addAttribute("todo", todo);
         model.addAttribute("tasks", tasks);
         model.addAttribute("users", users);
+
+        ChatRoom chatRoom = todo.getChatRoom();
+        if (chatRoom != null) {
+            model.addAttribute("messages", chatRoom.getMessages());
+        }
+
         return "tasks-list";
     }
 
