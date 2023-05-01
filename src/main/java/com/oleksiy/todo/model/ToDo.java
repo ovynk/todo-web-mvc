@@ -1,5 +1,6 @@
 package com.oleksiy.todo.model;
 
+import com.oleksiy.todo.model.chat.ChatRoom;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -36,6 +37,9 @@ public class ToDo {
             joinColumns = @JoinColumn(name = "todo_id"),
             inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
     private List<User> collaborators;
+
+    @OneToOne(mappedBy = "todo", cascade = CascadeType.REMOVE)
+    private ChatRoom chatRoom;
 
     @Override
     public String toString() {
