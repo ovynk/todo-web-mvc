@@ -2,7 +2,6 @@ package com.oleksiy.todo.controller;
 
 import com.oleksiy.todo.model.chat.ChatMessage;
 import com.oleksiy.todo.service.ChatMassageService;
-import com.oleksiy.todo.service.ChatRoomService;
 import com.oleksiy.todo.service.ToDoService;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;

@@ -2,8 +2,11 @@ package com.oleksiy.todo.model.chat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "messages")
@@ -14,7 +17,9 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "content", columnDefinition = "TEXT", length = 480)
+    @NotBlank
+    @Size(max = 480, message = "Message must be maximum 480 chars")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "sender")
