@@ -38,10 +38,14 @@ edit application.properties with url to database, username and password.
 You do not need create anything in empty database. Project has data.sql file.<br> 
 Application.properties is configured so that ***every time running*** tables generates automtically<br>
 
-Users that are in data.sql
+There are users in data.sql
 
 | Login         | Password | Role  |
 | ------------- |:--------:|:-----:|
 | mike@mail.com | 1111     | ADMIN |
 | nick@mail.com | 2222     | USER  |
 | nora@mail.com | 3333     | USER  |
+
+## Fast review
+
+https://user-images.githubusercontent.com/90598021/235752046-ef07b6f0-ed31-4ff3-835b-c35e39285392.mp4
