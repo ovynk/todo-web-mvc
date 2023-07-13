@@ -1,4 +1,4 @@
-# Simple project Web ToDo list with implementation of chat
+# Project Web ToDo list with implementation of chat
 
 Project is written to practice and learn new skills.
 <br>
